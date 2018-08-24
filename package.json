@@ -1,0 +1,24 @@
+{
+  "name": "swarmcityapimin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "now": "npm install && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swarmcity/SwarmCityApiMin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swarmcity/SwarmCityApiMin/issues"
+  },
+  "homepage": "https://github.com/swarmcity/SwarmCityApiMin#readme"
+}
