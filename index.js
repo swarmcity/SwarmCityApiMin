@@ -16,8 +16,8 @@ app.get('/:id', function (req, res) {
     res.send(`Hello World! ${id}`)
 })
 app.post('/', function (req, res) {
-    const body = req.body;
-    res.send(`Got a POST request: ${body}`)
+    const account_name = req.body.account_name;
+    res.send(`Got a POST request: ${account_name}`)
 })
 
 
