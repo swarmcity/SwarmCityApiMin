@@ -11,13 +11,20 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/:id', function (req, res) {
-    var id = req.params.id;
-    res.send(`Hello World! ${id}`)
+app.get('/ipfs/:ipfsHash', function (req, res) {
+    var ipfsHash = req.params.ipfsHash;
+    ipfs.files.cat(ipfsHash)
+    .then((file) => {
+        res.send(file)
+    })
+    .catch((err) => {
+        res.send(`Error: ${err}`)
+    })
 })
-app.post('/', function (req, res) {
-    const account_name = req.body.account_name;
-    res.send(`Got a POST request: ${account_name}`)
+
+app.post('/ipfs/', function (req, res) {
+    const data = req.body.data;
+    res.send(`Got a POST request: ${data}`)
 })
 
 
