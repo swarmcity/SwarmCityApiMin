@@ -7,9 +7,15 @@ const io = require('socket.io')(http);
 const ipfsAPI = require('ipfs-api')
 const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
 const bodyParser = require("body-parser");
+const compress = require('compression');
+const helmet = require('helmet');
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(compress());
+app.use(helmet());
+app.use(cors())
 
 app.get('/ipfs/:ipfsHash', function (req, res) {
     var ipfsHash = req.params.ipfsHash;
@@ -35,3 +41,5 @@ io.on('connection', function(socket){
 http.listen(process.env.PORT, function(){
     console.log(`Server running at http://localhost:${process.env.PORT}/`);
 });
+
+module.exports = app;
