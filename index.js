@@ -7,18 +7,14 @@ const io = require('socket.io')(http);
 const ipfsAPI = require('ipfs-api')
 const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
+app.get('/:id', function (req, res) {
+    var id = req.params.id;
+    res.send(`Hello World! ${id}`)
 })
 app.post('/', function (req, res) {
     res.send('Got a POST request')
 })
-app.put('/', function (req, res) {
-    res.send('Got a PUT request')
-})
-app.delete('/', function (req, res) {
-    res.send('Got a DELETE request')
-})
+
 
 io.on('connection', function(socket){
     console.log('a user connected');
