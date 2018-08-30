@@ -1,11 +1,12 @@
 #!/usr/bin/env nodejs
+// version 1.0
 require('dotenv').config()
 
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const ipfsAPI = require('ipfs-api')
-const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
+const ipfs = ipfsAPI('127.0.0.1', '5001', {protocol: 'http'})
 const bodyParser = require("body-parser");
 const compress = require('compression');
 const helmet = require('helmet');
@@ -35,14 +36,6 @@ app.post('/ipfs/', function (req, res) {
     })
 })
 
-
-
-app.get('/test/', function (req, res) {
-    res.send({
-        success: true
-    });
-})
-
 app.get('/ipfs/:data', function (req, res) {
     ipfs.files.cat(req.params.data)
     .then((response) => {
@@ -58,6 +51,10 @@ app.get('/ipfs/:data', function (req, res) {
         });
     })
 })
+
+app.get('*', function(req, res) {
+    res.send('Welcome to the Swarm City API');
+});
 
 
 
