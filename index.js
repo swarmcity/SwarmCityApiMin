@@ -20,7 +20,7 @@ app.use(helmet());
 app.use(cors())
 
 
-app.post('/ipfs/', function (req, res) {
+app.post('/ipfs/', (req, res) => {
     ipfs.add(new Buffer(req.body.data, 'utf8'))
     .then((response) => {
         res.send({
@@ -30,29 +30,41 @@ app.post('/ipfs/', function (req, res) {
     })
     .catch((err) => {
         res.send({
-            success: false, 
+            success: false,
             error: err
         });
     })
 })
 
-app.get('/ipfs/:data', function (req, res) {
+app.get('/ipfs/:data', (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => {
         res.send({
-            success: true, 
-            hash: decodeURI(Buffer(response, 'ascii').toString('utf8')),
+            success: true,
+            data: Buffer(response, 'ascii').toString('utf8'),
         });
     })
     .catch((err) => {
         res.send({
-            success: false, 
+            success: false,
             error: err
         });
     })
 })
 
-app.get('/', (req, res) => res.send('Welcome to the Swarm City API'))
+app.get('/img/:data', (req, res) => {
+    ipfs.files.cat(req.params.data)
+    .then((response) => {
+        res.send(Buffer(response, 'ascii').toString('utf8'));
+    })
+    .catch((err) => {
+        res.send({
+            success: false,
+            error: err
+        });
+    })
+})
+
 app.get('*', (req, res) => res.send('Welcome to the Swarm City API'))
 
 

@@ -30,7 +30,38 @@
 		{
 			"name": "LOCAL: GET base 64 from IPFS Hash",
 			"request": {
-				"url": "http://localhost:3000/ipfs/Qmb7WDNPTDqUcthjJAwZB9Fyvjy7CDRsf2WcGW1R6n5bPf",
+				"url": "http://localhost:3000/ipfs/QmczMXpyKH2msqMEYC9dD9YcvPAAkeB4GUBNxcue52rCVH",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REMOTE: POST base 64 to IPFS Hash",
+			"request": {
+				"url": "https://api1.swarm.city/ipfs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REMOTE: GET base 64 from IPFS Hash",
+			"request": {
+				"url": "https://api1.swarm.city/ipfs/QmczMXpyKH2msqMEYC9dD9YcvPAAkeB4GUBNxcue52rCVH",
 				"method": "GET",
 				"header": [],
 				"body": {},
