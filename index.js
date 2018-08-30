@@ -11,27 +11,49 @@ const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(compress());
 app.use(helmet());
 app.use(cors())
 
-app.get('/ipfs/:ipfsHash', function (req, res) {
-    var ipfsHash = req.params.ipfsHash;
-    ipfs.files.cat(ipfsHash)
-    .then((file) => {
-        res.send(file)
+
+app.post('/ipfs/', function (req, res) {
+    ipfs.add(new Buffer(req.body.data, 'utf8'))
+    .then((response) => {
+        res.send({
+            success: true, 
+            hash: response[0].hash,
+        });
     })
     .catch((err) => {
-        res.send(`Error: ${err}`)
+        res.send({
+            success: false, 
+            error: err
+        });
     })
 })
 
-app.post('/ipfs/', function (req, res) {
-    const data = req.body.data;
-    res.send(`Got a POST request: ${data}`)
+
+
+app.get('/ipfs/:data', function (req, res) {
+    ipfs.files.cat(req.params.data)
+    .then((response) => {
+        res.send({
+            success: true, 
+            hash: decodeURI(Buffer(response, 'ascii').toString('utf8')),
+        });
+    })
+    .catch((err) => {
+        res.send({
+            success: false, 
+            error: err
+        });
+    })
 })
+
+
 
 
 io.on('connection', function(socket){
