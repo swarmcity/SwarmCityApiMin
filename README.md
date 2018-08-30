@@ -66,3 +66,10 @@ The response is just the data, no object is returned.
 ```
 data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
 ```
+
+## Postman Collection
+
+I convenient set of postman command for testing the api is included in the file
+```
+./SwarmCityApiMin.postman_collection
+```
