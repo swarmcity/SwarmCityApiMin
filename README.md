@@ -44,7 +44,7 @@ To get data from IPFS you can make a GET request containing the IPFS Hash you wi
 /ipfs/QmczMXpyKH2msqMEYC9dD9YcvPAAkeB4GUBNxcue52rCVH
 ```
 
-The response is an object with success and hash keys
+The response is an object with success and data keys
 
 ```
 {
