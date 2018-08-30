@@ -1,11 +1,11 @@
 # Swarm City API
 
-A minimal API for saving and retreiving data to/from IPFS
+A minimal API for saving and retrieving data to/from IPFS
 
 
 ## Node & IPFS
 
-First, make sure you have NPM (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally. Also ensure you IPFS installed and the daemon running [IPFS](https://ipfs.io/docs/install/)
+First, make sure you have NPM (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally. Also, ensure you IPFS installed and the daemon running [IPFS](https://ipfs.io/docs/install/)
 
 ## Start the server 
 
@@ -13,9 +13,9 @@ First, make sure you have NPM (packaged with [Node.js](https://nodejs.org)) inst
 $ npm run now
 ```
 
-## saving data to IPFS
+## Saving data to IPFS
 
-Currently there is no size or domain restrictions, text based data can be stored on IPFS by making a POST request to 
+Currently, there are no size or domain restrictions, text-based data can be stored on IPFS by making a POST request to 
 
 ```
 /ipfs 
@@ -36,7 +36,7 @@ the response is an object with success and hash keys
 }
 ```
 
-## getting data from IPFS
+## Getting data from IPFS
 
 To get data from IPFS you can make a GET request containing the IPFS Hash you wish to get
 
@@ -69,7 +69,7 @@ data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw
 
 ## Postman Collection
 
-I convenient set of postman command for testing the api is included in the file
+I convenient set of postman command for testing the API is included in the file
 ```
 ./SwarmCityApiMin.postman_collection
 ```
