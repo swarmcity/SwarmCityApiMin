@@ -37,6 +37,12 @@ app.post('/ipfs/', function (req, res) {
 
 
 
+app.get('/', function (req, res) {
+    res.send({
+        success: true
+    });
+})
+
 app.get('/ipfs/:data', function (req, res) {
     ipfs.files.cat(req.params.data)
     .then((response) => {
