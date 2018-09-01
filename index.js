@@ -9,12 +9,13 @@ const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const port = process.env.PORT || 3000;
+const maxFileSize = process.env.MAXSIZE || 100000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(compress());
 app.use(helmet());
-app.use(cors())
+app.use(cors());
 
 var whitelist = ['https://api0.swarm.city', 'https://api1.swarm.city']
 var corsOptions = {
@@ -27,6 +28,9 @@ var corsOptions = {
     }
 }
 
+// TODO check the file sizr of the base 64 object and reject if its too big	
+// where n is the length of base64 encoded string/
+// var result = 4*Math.Ceiling(((double)n/3)));
 
 app.post('/ipfs/', cors(corsOptions), (req, res) => {
     ipfs.add(new Buffer(req.body.data, 'utf8'))
