@@ -17,7 +17,7 @@ app.use(compress());
 app.use(helmet());
 app.use(cors());
 
-var whitelist = ['https://api0.swarm.city', 'https://api1.swarm.city']
+var whitelist = ['http://localhost:3000', 'https://dev.swarm.city', 'https://www.swarm.city']
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
