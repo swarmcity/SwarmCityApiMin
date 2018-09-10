@@ -19,13 +19,13 @@ app.use(cors());
 
 var whitelist = ['http://localhost:3000', 'https://dev.swarm.city', 'https://www.swarm.city']
 var corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed'))
-        }
-    }
+    // origin: function (origin, callback) {
+    //     if (whitelist.indexOf(origin) !== -1) {
+    //         callback(null, true)
+    //     } else {
+    //         callback(new Error('Not allowed'))
+    //     }
+    // }
 }
 
 // TODO check the file sizr of the base 64 object and reject if its too big	
