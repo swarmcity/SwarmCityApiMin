@@ -33,27 +33,24 @@ var corsOptions = {
 // var result = 4*Math.Ceiling(((double)n/3)));
 
 app.post('/ipfs/', cors(corsOptions), (req, res) => {
-    ipfs.add(new Buffer(req.body.data, 'utf8'))
+    ipfs.add(new Buffer(decodeURIComponent(req.body.data).split(",")[1], 'utf8'))
     .then((response) => res.send({success: true, hash: response[0].hash}))
     .catch((err) => res.send({success: false, error: err}))
 })
 app.get('/ipfs/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
-    .then((response) => res.send({success: true, data: decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
+    .then((response) => res.send({success: true, data: 'data:image/png;base64,'+ decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
     .catch((err) => res.send({success: false, error: err}))
 })
 app.get('/img/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => {
-        let base64 = (decodeURI(Buffer(response, 'ascii').toString('utf8')));
-        let img = new Buffer(base64.split(",")[1], 'base64');
+        let img = new Buffer(Buffer(response, 'ascii').toString('utf8'), 'base64');
         res.writeHead(200, {'Content-Type': 'image/png', 'Content-Length': img.length});
         res.end(img);
     })
     .catch((err) => res.send({success: false, error: err}))
 })
 
-
 app.get('*', (req, res) => res.send('Welcome to the Swarm City API'))
-
 http.listen(port);
