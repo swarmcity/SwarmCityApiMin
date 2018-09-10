@@ -59,7 +59,7 @@ app.get('/img2/:data', cors(corsOptions), (req, res) => {
     .catch((err) => res.send({success: false, error: err}))
 })
 
-app.get('/img/:data', cors(corsOptions), (req, res) => {
+app.get('/img3/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => res.send(
         Buffer(decodeURI(response), 'ascii').toString('utf8')
