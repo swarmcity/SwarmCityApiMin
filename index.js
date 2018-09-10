@@ -42,11 +42,32 @@ app.get('/ipfs/:data', cors(corsOptions), (req, res) => {
     .then((response) => res.send({success: true, data: decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
     .catch((err) => res.send({success: false, error: err}))
 })
+
 app.get('/img/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
-    .then((response) => res.send(decodeURI(Buffer(response, 'ascii').toString('utf8'))))
+    .then((response) => res.send(
+        decodeURI(Buffer(response, 'ascii').toString('utf8'))
+    ))
     .catch((err) => res.send({success: false, error: err}))
 })
+
+app.get('/img2/:data', cors(corsOptions), (req, res) => {
+    ipfs.files.cat(req.params.data)
+    .then((response) => res.send(
+        Buffer(response, 'ascii').toString('utf8')
+    ))
+    .catch((err) => res.send({success: false, error: err}))
+})
+
+app.get('/img/:data', cors(corsOptions), (req, res) => {
+    ipfs.files.cat(req.params.data)
+    .then((response) => res.send(
+        Buffer(decodeURI(response), 'ascii').toString('utf8')
+    ))
+    .catch((err) => res.send({success: false, error: err}))
+})
+
+
 app.get('*', (req, res) => res.send('Welcome to the Swarm City API'))
 
 http.listen(port);
