@@ -32,17 +32,17 @@ var corsOptions = {
 // where n is the length of base64 encoded string/
 // var result = 4*Math.Ceiling(((double)n/3)));
 
-app.post('/ipfs/', (req, res) => {
+app.post('/ipfs/', cors(corsOptions), (req, res) => {
     ipfs.add(new Buffer(req.body.data, 'utf8'))
     .then((response) => res.send({success: true, hash: response[0].hash}))
     .catch((err) => res.send({success: false, error: err}))
 })
-app.get('/ipfs/:data', (req, res) => {
+app.get('/ipfs/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => res.send({success: true, data: decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
     .catch((err) => res.send({success: false, error: err}))
 })
-app.get('/img/:data', (req, res) => {
+app.get('/img/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => res.send(decodeURI(Buffer(response, 'ascii').toString('utf8'))))
     .catch((err) => res.send({success: false, error: err}))
