@@ -21,7 +21,7 @@ Currently, there are no size or domain restrictions, text-based data can be stor
 /ipfs 
 ```
 
-the body should contain an object with the key of 'data' and the value containing the text value you want to save, in this example we are storing a 1px transparent gif as a base 64 string.
+the body should contain an object with the key of 'data' and the value containing URI Encoded base 64 value you want to save, in this example we are storing a 1px transparent gif as a base 64 string.
 
 ```
 {"data":"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
