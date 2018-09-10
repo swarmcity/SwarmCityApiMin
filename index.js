@@ -42,28 +42,14 @@ app.get('/ipfs/:data', cors(corsOptions), (req, res) => {
     .then((response) => res.send({success: true, data: decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
     .catch((err) => res.send({success: false, error: err}))
 })
-
 app.get('/img/:data', cors(corsOptions), (req, res) => {
     ipfs.files.cat(req.params.data)
-    .then((response) => res.send(
-        decodeURI(Buffer(response, 'ascii').toString('utf8'))
-    ))
-    .catch((err) => res.send({success: false, error: err}))
-})
-
-app.get('/img2/:data', cors(corsOptions), (req, res) => {
-    ipfs.files.cat(req.params.data)
-    .then((response) => res.send(
-        Buffer(response, 'ascii').toString('utf8')
-    ))
-    .catch((err) => res.send({success: false, error: err}))
-})
-
-app.get('/img3/:data', cors(corsOptions), (req, res) => {
-    ipfs.files.cat(req.params.data)
-    .then((response) => res.send(
-        Buffer(decodeURI(response), 'ascii').toString('utf8')
-    ))
+    .then((response) => {
+        let base64 = (decodeURI(Buffer(response, 'ascii').toString('utf8')));
+        let img = new Buffer(base64.split(",")[1], 'base64');
+        res.writeHead(200, {'Content-Type': 'image/png', 'Content-Length': img.length});
+        res.end(img);
+    })
     .catch((err) => res.send({success: false, error: err}))
 })
 
