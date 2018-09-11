@@ -16,33 +16,19 @@ app.use(bodyParser.json());
 app.use(compress());
 app.use(helmet());
 app.use(cors());
+app.options('*', cors()) 
 
-var whitelist = ['http://localhost:3000', 'https://dev.swarm.city', 'https://www.swarm.city']
-var corsOptions = {
-    // origin: function (origin, callback) {
-    //     if (whitelist.indexOf(origin) !== -1) {
-    //         callback(null, true)
-    //     } else {
-    //         callback(new Error('Not allowed'))
-    //     }
-    // }
-}
-
-// TODO check the file sizr of the base 64 object and reject if its too big	
-// where n is the length of base64 encoded string/
-// var result = 4*Math.Ceiling(((double)n/3)));
-
-app.post('/ipfs/', cors(corsOptions), (req, res) => {
+app.post('/ipfs/', (req, res) => {
     ipfs.add(new Buffer(decodeURIComponent(req.body.data).split(",")[1], 'utf8'))
     .then((response) => res.send({success: true, hash: response[0].hash}))
     .catch((err) => res.send({success: false, error: err}))
 })
-app.get('/ipfs/:data', cors(corsOptions), (req, res) => {
+app.get('/ipfs/:data', (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => res.send({success: true, data: 'data:image/png;base64,'+ decodeURI(Buffer(response, 'ascii').toString('utf8'))}))
     .catch((err) => res.send({success: false, error: err}))
 })
-app.get('/img/:data', cors(corsOptions), (req, res) => {
+app.get('/img/:data', (req, res) => {
     ipfs.files.cat(req.params.data)
     .then((response) => {
         let img = new Buffer(Buffer(response, 'ascii').toString('utf8'), 'base64');
